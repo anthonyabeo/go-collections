@@ -93,15 +93,34 @@ func (dll *DoublyLinkedList) AddLast(e interface{})  {
 	dll.numItems++
 }
 
-//// removes and returns the first item from the list
-//func (dll DoublyLinkedList) RemoveFirst() interface{} {
-//
-//}
+// removes and returns the first item from the list
+func (dll *DoublyLinkedList) RemoveFirst() interface{} {
+	if dll.IsEmpty(){
+		return nil
+	}
+	item := dll.header.next.item
+
+	dll.header.next.next.prev = dll.header
+	dll.header.next = dll.header.next.next
+	dll.numItems--
+
+	return item
+}
 
 // removes and returns the first item from the list
-//func (dll DoublyLinkedList) RemoveLast() interface{} {
-//	return interface()
-//}
+func (dll *DoublyLinkedList) RemoveLast() interface{} {
+	if dll.IsEmpty(){
+		return nil
+	}
+
+	item := dll.trailer.prev.item
+
+	dll.trailer.prev.prev.next = dll.trailer
+	dll.trailer.prev = dll.trailer.prev.prev
+	dll.numItems--
+
+	return item
+}
 
 func (dll DoublyLinkedList) PrintForward()  {
 	for curNode := dll.header.next; curNode.item != "trailer"; curNode = curNode.next {
