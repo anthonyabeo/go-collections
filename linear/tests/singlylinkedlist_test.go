@@ -11,9 +11,6 @@ import (
 
 var sll = new(list.SinglyLinkedList)
 
-func TestToString(t *testing.T) {
-	fmt.Println(sll.String())
-}
 
 func TestSize(t *testing.T) {
 	if sll.Size() != 0 {
