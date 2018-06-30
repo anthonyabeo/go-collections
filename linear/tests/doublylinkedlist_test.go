@@ -35,3 +35,16 @@ func TestDllAddFirst(t *testing.T) {
 		t.Error("Expected last item in dll to be king")
 	}
 }
+
+func TestDllAddLast(t *testing.T) {
+	dll.AddLast("knight")
+	dll.AddLast("pawn")
+
+	if dll.Size() != 4 {
+		t.Error("Expected size of dll to be", 4)
+	}
+
+	if dll.Last() != "pawn" {
+		t.Error("Expected first item in dll to be queen")
+	}
+}

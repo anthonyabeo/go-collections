@@ -1,5 +1,7 @@
 package list
 
+import "fmt"
+
 type dllNode struct {
 	item interface{}
 	next *dllNode
@@ -80,10 +82,16 @@ func (dll *DoublyLinkedList) AddFirst(e interface{})  {
 	dll.numItems++
 }
 
-//// Add a new item to the end of the list
-//func (dll DoublyLinkedList) AddLast(e interface{})  {
-//
-//}
+// Add a new item to the end of the list
+func (dll *DoublyLinkedList) AddLast(e interface{})  {
+	tail := dll.trailer
+	trailerPrev := dll.trailer.prev
+
+	newNode := dllNode{e, tail, trailerPrev}
+	tail.prev = &newNode
+	trailerPrev.next = &newNode
+	dll.numItems++
+}
 
 //// removes and returns the first item from the list
 //func (dll DoublyLinkedList) RemoveFirst() interface{} {
@@ -94,3 +102,15 @@ func (dll *DoublyLinkedList) AddFirst(e interface{})  {
 //func (dll DoublyLinkedList) RemoveLast() interface{} {
 //	return interface()
 //}
+
+func (dll DoublyLinkedList) PrintForward()  {
+	for curNode := dll.header.next; curNode.item != "trailer"; curNode = curNode.next {
+		fmt.Println(curNode.item)
+	}
+}
+
+func (dll DoublyLinkedList) PrintReverse()  {
+	for curNode := dll.trailer.prev; curNode.item != "header"; curNode = curNode.prev {
+		fmt.Println(curNode.item)
+	}
+}
