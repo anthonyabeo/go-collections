@@ -18,7 +18,7 @@ func (n node) Item() interface{} {
     return n.item
 }
 
-// returns a pointer to the next item in the node
+// returns a pointer to the next node in the list
 func (n node) Next() *node {
     return n.next
 }
@@ -51,7 +51,7 @@ func (sll SinglyLinkedList) First() interface{}  {
 // Add a new item to the end of the list
 func (sll *SinglyLinkedList) AddLast(e interface{}) {
     newNode := &node{item: e, next: nil}
-    if sll.Empty() {
+    if sll.isEmpty() {
         sll.head = newNode
     } else {
         sll.tail.next = newNode
@@ -73,12 +73,13 @@ func (sll SinglyLinkedList) Size() int {
 
 // returns a boolean indicating whether or not
 // the list is empty or not
-func (sll SinglyLinkedList) Empty() bool  {
+func (sll SinglyLinkedList) isEmpty() bool  {
     return sll.numItems == 0
 }
 
+// removes and returns the first item in the list
 func (sll SinglyLinkedList) RemoveFirst() interface{} {
-    if sll.Empty(){
+    if sll.isEmpty(){
         return nil
     }
     first := sll.First()
