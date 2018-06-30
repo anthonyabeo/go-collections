@@ -17,6 +17,10 @@ func TestCllAddFirst(t *testing.T) {
 	cll.AddFirst(5)
 	cll.AddFirst(17)
 	cll.AddFirst(3)
+
+	if cll.Size() != 3 {
+		t.Error("expected size to be 3")
+	}
 }
 
 func TestCllFirst(t *testing.T)  {
