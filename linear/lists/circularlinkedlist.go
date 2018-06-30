@@ -14,7 +14,7 @@ func (cll CircularLinkedList) IsEmpty() bool {
 }
 
 // returns the first element from the list
-func (cll CircularLinkedList) First() interface{}  {
+func (cll *CircularLinkedList) First() interface{}  {
 	if cll.IsEmpty(){
 		return nil
 	}
@@ -22,7 +22,7 @@ func (cll CircularLinkedList) First() interface{}  {
 }
 
 // returns the first element from the list
-func (cll CircularLinkedList) Last() interface{} {
+func (cll *CircularLinkedList) Last() interface{} {
 	if cll.IsEmpty(){
 		return nil
 	}

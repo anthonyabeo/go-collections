@@ -44,14 +44,17 @@ func (sll *SinglyLinkedList) AddFirst(e interface{}) {
 }
 
 // returns the first element from the list
-func (sll SinglyLinkedList) First() interface{}  {
+func (sll *SinglyLinkedList) First() interface{}  {
+	if sll.IsEmpty() {
+		return nil
+	}
     return sll.head.item
 }
 
 // Add a new item to the end of the list
 func (sll *SinglyLinkedList) AddLast(e interface{}) {
     newNode := &node{item: e, next: nil}
-    if sll.isEmpty() {
+    if sll.IsEmpty() {
         sll.head = newNode
     } else {
         sll.tail.next = newNode
@@ -62,24 +65,27 @@ func (sll *SinglyLinkedList) AddLast(e interface{}) {
 }
 
 // returns the first element from the list
-func (sll SinglyLinkedList) Last() interface{} {
+func (sll *SinglyLinkedList) Last() interface{} {
+	if sll.IsEmpty() {
+		return nil
+	}
     return sll.tail.item
 }
 
 // Returns the number of items in the list
-func (sll SinglyLinkedList) Size() int {
+func (sll *SinglyLinkedList) Size() int {
     return sll.numItems
 }
 
 // returns a boolean indicating whether or not
 // the list is empty or not
-func (sll SinglyLinkedList) isEmpty() bool  {
+func (sll *SinglyLinkedList) IsEmpty() bool  {
     return sll.numItems == 0
 }
 
 // removes and returns the first item in the list
-func (sll SinglyLinkedList) RemoveFirst() interface{} {
-    if sll.isEmpty(){
+func (sll *SinglyLinkedList) RemoveFirst() interface{} {
+    if sll.IsEmpty(){
         return nil
     }
     first := sll.First()
@@ -92,6 +98,7 @@ func (sll SinglyLinkedList) RemoveFirst() interface{} {
 
     return first
 }
+
 // Returns a string representation of the list
 func (sll *SinglyLinkedList) String() string  {
     return fmt.Sprintf("<%v>", sll.numItems)

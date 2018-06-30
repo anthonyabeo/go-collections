@@ -45,18 +45,18 @@ func NewDll() *DoublyLinkedList {
 }
 
 // Returns the number of items in the list
-func (dll DoublyLinkedList) Size() int {
+func (dll *DoublyLinkedList) Size() int {
 	return dll.numItems
 }
 
 // returns a boolean indicating whether or not
 // the list is empty or not
-func (dll DoublyLinkedList) IsEmpty() bool  {
+func (dll *DoublyLinkedList) IsEmpty() bool  {
 	return dll.numItems == 0
 }
 
 // returns the first element from the list
-func (dll DoublyLinkedList) First() interface{}  {
+func (dll *DoublyLinkedList) First() interface{}  {
 	if dll.IsEmpty() {
 		return nil
 	}
@@ -64,7 +64,7 @@ func (dll DoublyLinkedList) First() interface{}  {
 }
 
 // returns the first element from the list
-func (dll DoublyLinkedList) Last() interface{} {
+func (dll *DoublyLinkedList) Last() interface{} {
 	if dll.IsEmpty() {
 		return nil
 	}
@@ -122,13 +122,13 @@ func (dll *DoublyLinkedList) RemoveLast() interface{} {
 	return item
 }
 
-func (dll DoublyLinkedList) PrintForward()  {
+func (dll *DoublyLinkedList) PrintForward()  {
 	for curNode := dll.header.next; curNode.item != "trailer"; curNode = curNode.next {
 		fmt.Println(curNode.item)
 	}
 }
 
-func (dll DoublyLinkedList) PrintReverse()  {
+func (dll *DoublyLinkedList) PrintReverse()  {
 	for curNode := dll.trailer.prev; curNode.item != "header"; curNode = curNode.prev {
 		fmt.Println(curNode.item)
 	}
