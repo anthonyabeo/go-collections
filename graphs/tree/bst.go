@@ -118,12 +118,14 @@ func (bst *BinarySearchTree) Remove(e interface{}) interface{} {
 	return 0
 }
 
+// Returns the minimum item in the BST
 func (bst *BinarySearchTree) Min() interface{} {
 	return min(bst.root)
 }
 
+/// Returns the maximum item in the BST
 func (bst *BinarySearchTree) Max() interface{} {
-	return 0
+	return max(bst.root)
 }
 
 func (bst *BinarySearchTree) Contains(e interface{}) bool {
@@ -158,4 +160,16 @@ func min(root *node) interface{} {
 	}
 
 	return min(root.left)
+}
+
+func max(root *node) interface{} {
+	if root == nil {
+		return nil
+	}
+
+	if root.right == nil{
+		return root.item
+	}
+
+	return max(root.right)
 }

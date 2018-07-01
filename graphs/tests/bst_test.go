@@ -36,3 +36,10 @@ func TestMin(t *testing.T)  {
 		t.Error("min should be 1")
 	}
 }
+
+func TestMax(t *testing.T)  {
+	max := bst.Max()
+	if max != 9 {
+		t.Error("max should be 9")
+	}
+}
