@@ -99,8 +99,14 @@ func (tree *BinaryTreeArray) AddRight(p int, e interface{}) error {
 /// Returns
 /// 	int: index of the element in the tree
 ///		error: if the value does not exist in the tree
-func (tree *BinaryTreeArray) Get(e interface{}) int {
-	return 0
+func (tree *BinaryTreeArray) Get(e interface{}) (int, error) {
+	for i := 0; i < tree.Size(); i++  {
+		if tree.tree[i] == e {
+			return i, nil
+		}
+	}
+
+	return -1, errors.New("no such item")
 }
 
 /// Updates the value at index p with e.
@@ -109,15 +115,45 @@ func (tree *BinaryTreeArray) Get(e interface{}) int {
 /// Args
 /// 	p int : the index int the array of the parent node
 /// 	e interface{} : the item to be inserted
-func (tree *BinaryTreeArray) Set(p int, e interface{})  {
+///
+/// Returns
+///		error: if the value at p does not exist in the tree
+func (tree *BinaryTreeArray) Set(p int, e interface{}) error {
+	if tree.tree[p] == nil {
+		return errors.New("cannot assign left value to nil")
+	}
 
+	tree.tree[p] = e
+
+	return nil
 }
 
 /// Removes the node at index p, replacing it with its
-/// child if any and returns the element that was stored at p
+/// child (if any) and returns the element that was stored at p
+/// if p has two children, return an error.
 ///
 /// Args
-/// 	p int : the index in the array of the node to be removed
-func (tree *BinaryTreeArray) Remove(p int)  {
+/// 	p int : the index in the array of the value to be removed
+func (tree *BinaryTreeArray) Remove(p int) error {
+	if tree.tree[p] == nil {
+		return errors.New("cannot assign left value to nil")
+	}
 
+	if tree.tree[(2*p) + 1] != nil && tree.tree[(2*p) + 2] != nil {
+
+		return errors.New("the value has two children")
+
+	} else if tree.tree[(2*p) + 1] != nil && tree.tree[(2*p) + 2] == nil {
+		tree.tree[p] = tree.tree[(2*p) + 1]
+		tree.tree[(2*p) + 1] = nil
+	} else if tree.tree[(2*p) + 1] == nil && tree.tree[(2*p) + 2] != nil {
+		tree.tree[p] = tree.tree[(2*p) + 2]
+		tree.tree[(2*p) + 2] = nil
+	} else {
+		tree.tree[p] = nil
+	}
+
+	tree.numItems--
+
+	return nil
 }

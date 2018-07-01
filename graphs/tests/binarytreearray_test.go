@@ -48,3 +48,36 @@ func TestAddRight(t *testing.T)  {
 		t.Error("expected right side of root to be 34")
 	}
 }
+
+func TestGetAndSet(t *testing.T)  {
+	index, err := tr.Get(34)
+	if err != nil {
+		t.Error("err should be nill")
+	}
+
+	if index != 2 {
+		t.Error("index should be 2")
+	}
+
+	e := tr.Set(index, 50)
+	if e != nil {
+		t.Error("err should be nill")
+	}
+
+	if tr.Tree()[index] != 50 {
+		t.Error("value at index 2 should be 50")
+	}
+}
+
+func TestRemove(t *testing.T)  {
+	index, _ := tr.Get(50)
+	e := tr.Remove(index)
+
+	if e != nil {
+		t.Error("err should be nill")
+	}
+
+	if tr.Size() != 2 {
+		t.Error("size should be 2")
+	}
+}
