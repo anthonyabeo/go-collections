@@ -1,5 +1,9 @@
 package tree
 
+import (
+	"go-collections/linear"
+)
+
 type Comparable interface {
 	compare(other interface{}) int
 }
@@ -129,7 +133,9 @@ func (bst *BinarySearchTree) Max() interface{} {
 }
 
 func (bst *BinarySearchTree) Contains(e interface{}) bool {
-	return false
+	if bst.root == nil { return false}
+
+	return contains(bst.root, e)
 }
 
 func insert(e interface{}, root *node) {
@@ -151,9 +157,7 @@ func insert(e interface{}, root *node) {
 }
 
 func min(root *node) interface{} {
-	if root == nil {
-		return nil
-	}
+	if root == nil {return nil}
 
 	if root.left == nil{
 		return root.item
@@ -163,13 +167,29 @@ func min(root *node) interface{} {
 }
 
 func max(root *node) interface{} {
-	if root == nil {
-		return nil
-	}
+	if root == nil {return nil}
 
 	if root.right == nil{
 		return root.item
 	}
 
 	return max(root.right)
+}
+
+func contains(root *node, e interface{}) bool {
+	q := new(linear.Queue)
+	q.Enqueue(root)
+
+	for !q.IsEmpty() {
+		node := q.Dequeue().(*node)
+
+		if node.item == e {
+			return true
+		} else {
+			if node.left != nil {q.Enqueue(node.left)}
+			if node.right != nil {q.Enqueue(node.right)}
+		}
+	}
+
+	return false
 }
