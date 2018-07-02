@@ -119,7 +119,14 @@ func (bst *BinarySearchTree) Insert(e interface{})  {
 
 
 func (bst *BinarySearchTree) Remove(e interface{}) interface{} {
-	return 0
+	var item interface{}
+	if node, ok := contains(bst.root, e); ok {
+		item = node.item
+		node.item = remove(node.right)
+	}
+	bst.numItems--
+
+	return item
 }
 
 // Returns the minimum item in the BST
@@ -132,8 +139,8 @@ func (bst *BinarySearchTree) Max() interface{} {
 	return max(bst.root)
 }
 
-func (bst *BinarySearchTree) Contains(e interface{}) bool {
-	if bst.root == nil { return false}
+func (bst *BinarySearchTree) Contains(e interface{}) (*node, bool) {
+	if bst.root == nil { return nil, false}
 
 	return contains(bst.root, e)
 }
@@ -176,7 +183,7 @@ func max(root *node) interface{} {
 	return max(root.right)
 }
 
-func contains(root *node, e interface{}) bool {
+func contains(root *node, e interface{}) (*node, bool) {
 	q := new(linear.Queue)
 	q.Enqueue(root)
 
@@ -184,12 +191,25 @@ func contains(root *node, e interface{}) bool {
 		node := q.Dequeue().(*node)
 
 		if node.item == e {
-			return true
+			return node, true
 		} else {
 			if node.left != nil {q.Enqueue(node.left)}
 			if node.right != nil {q.Enqueue(node.right)}
 		}
 	}
 
-	return false
+	return nil, false
+}
+
+func remove(root *node) interface{} {
+	if root == nil {return nil}
+
+	if root.left == nil{
+		item := root.item
+		root = nil
+
+		return item
+	}
+
+	return min(root.left)
 }
