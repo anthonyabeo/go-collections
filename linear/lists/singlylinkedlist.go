@@ -1,8 +1,5 @@
 package list
 
-// usual imports
-import "fmt"
-
 
 /// This is Node implementation. The node is private
 /// outside this file since it starts with lowercase
@@ -72,6 +69,14 @@ func (sll *SinglyLinkedList) Last() interface{} {
     return sll.tail.item
 }
 
+// adds a new item after the specified node
+func (sll *SinglyLinkedList) AddAfter(n *node, e interface{})  {
+    if n != nil {
+        n.next = &node{e, n.next}
+        sll.numItems++
+    }
+}
+
 // Returns the number of items in the list
 func (sll *SinglyLinkedList) Size() int {
     return sll.numItems
@@ -97,9 +102,4 @@ func (sll *SinglyLinkedList) RemoveFirst() interface{} {
     }
 
     return first
-}
-
-// Returns a string representation of the list
-func (sll *SinglyLinkedList) String() string  {
-    return fmt.Sprintf("<%v>", sll.numItems)
 }
