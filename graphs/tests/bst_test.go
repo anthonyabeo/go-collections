@@ -16,11 +16,12 @@ func TestInsert(t *testing.T)  {
 	bst.Insert(3)
 	bst.Insert(6)
 	bst.Insert(4)
+	bst.Insert(10)
 
 	if bst.Root().Item() != 5 {t.Error("root item should be 5")}
 	if bst.Root().Left().Item() != 2 {t.Error("left value should be 2")}
 	if bst.Root().Right().Item() != 7 {t.Error("Right value should be 7")}
-	if bst.Size() != 8 {t.Error("number of items should be 7")}
+	if bst.Size() != 9 {t.Error("number of items should be 9")}
 }
 
 func TestMin(t *testing.T)  {
@@ -30,7 +31,7 @@ func TestMin(t *testing.T)  {
 
 func TestMax(t *testing.T)  {
 	max := bst.Max()
-	if max != 9 {t.Error("max should be 9")}
+	if max != 10 {t.Error("max should be 10")}
 }
 
 func TestContains(t *testing.T)  {
@@ -44,11 +45,17 @@ func TestBSTRemove(t *testing.T)  {
 		t.Error("value not removed")
 	}
 
-	if bst.Size() != 7 {
-		t.Error("number of items should be 7")
+	if bst.Size() != 8 {
+		t.Error("number of items should be 9")
 	}
 
 	if bst.Root().Left().Item() != 3 {
 		t.Error("new root.left is not 4")
+	}
+}
+
+func TestIsBST(t *testing.T)  {
+	if !bst.IsBST() {
+		t.Error("it is actually a BST")
 	}
 }

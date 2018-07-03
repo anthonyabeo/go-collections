@@ -145,6 +145,12 @@ func (bst *BinarySearchTree) Contains(e interface{}) (*node, bool) {
 	return contains(bst.root, e)
 }
 
+func (bst *BinarySearchTree) IsBST() bool {
+	return isBST(bst.root)
+}
+
+
+/// Helper functions
 func insert(e interface{}, root *node) {
 	if root.compare(e) == 0 {
 		return
@@ -212,4 +218,28 @@ func remove(root *node) interface{} {
 	}
 
 	return min(root.left)
+}
+
+func isBST(root *node) bool {
+	if root == nil {return false}
+
+	if root.right == nil && root.left == nil {
+		return true
+	} else if root.left != nil && root.right == nil {
+		// left node is not nil but right node is nil
+		if root.left.compare(root.item) < 0 {
+			return true
+		} else {
+			return false
+		}
+	} else {
+		// right node is nil but left node is not nil
+		if root.right.compare(root.item) > 0 {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	return isBST(root.left) && isBST(root.right)
 }
