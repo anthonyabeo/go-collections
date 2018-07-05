@@ -14,6 +14,10 @@ type node struct {
 	right *node
 }
 
+func (n *node) IsLeaf() bool {
+	return n.left == nil && n.right == nil
+}
+
 func (n *node) compare(other interface{}) int {
 	var x int
 	switch other.(type) {
@@ -145,6 +149,7 @@ func (bst *BinarySearchTree) Contains(e interface{}) (*node, bool) {
 	return contains(bst.root, e)
 }
 
+// checks whether the tree is a valid BST
 func (bst *BinarySearchTree) IsBST() bool {
 	return isBST(bst.root)
 }
