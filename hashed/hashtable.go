@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"time"
 	"fmt"
+	"errors"
 )
 
 type entry struct {
@@ -94,17 +95,38 @@ func (ht *HashTable) Put(key, value interface{}) {
 ///
 /// Return
 ///		value - the value associated with the key
-func (ht *HashTable) Get(key interface{}) interface{} {
+func (ht *HashTable) Get(key interface{}) (interface{}, error) {
 	idx := compress(ht.capacity, int(hashCode(key)))
 	if ht.bucketArray[idx] == nil {
-		return nil
+		return nil, errors.New("invalid key")
 	}
 
-	return ht.bucketArray[idx].(*entry).value
+	return ht.bucketArray[idx].(*entry).value, nil
 }
 
-func (ht *HashTable) Remove(key interface{}) interface{} {
-	return nil
+/// removes and returns the entry associated with the specified key.
+/// returns nil for the value requested if there is no such value and
+/// an error message to that effect
+///
+/// Args
+///		key -  the key whose entry we want to remove
+///
+/// Return
+///		entry - the entry associated with the key
+///		error - an appropriate error value or nil
+func (ht *HashTable) Remove(key interface{}) (interface{}, error) {
+	idx := compress(ht.capacity, int(hashCode(key)))
+	var x interface{}
+
+	if ht.bucketArray[idx] != nil {
+		x = ht.bucketArray[idx].(*entry)
+		ht.bucketArray[idx] = nil
+		ht.numItems--
+	} else {
+		return nil, errors.New("invalid key")
+	}
+
+	return x, nil
 }
 
 /// Returns a list of all the keys of entries in the hash table
