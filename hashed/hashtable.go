@@ -1,16 +1,20 @@
 package hashed
 
 import (
-	"go-collections/graphs/tree"
 	"math"
 	"math/rand"
 	"time"
+	"fmt"
 )
 
 type entry struct {
 	key interface{}
 	value interface{}
 	hashCode int64
+}
+
+func (e *entry) String() string {
+	return fmt.Sprintf("<%v: %v>", e.key, e.value)
 }
 
 type HashTable struct {
@@ -103,16 +107,46 @@ func (ht *HashTable) Remove(key interface{}) interface{} {
 	return nil
 }
 
-func (ht *HashTable) KeySet() tree.BinarySearchTree {
-	return tree.BinarySearchTree{}
+/// Returns a list of all the keys of entries in the hash table
+func (ht *HashTable) KeySet() []interface{} {
+	x := make([]interface{}, ht.numItems)
+	i := 0
+	for _, e := range ht.bucketArray {
+		if e != nil {
+			x[i] = e.(*entry).key
+			i++
+		}
+	}
+
+	return x
 }
 
-func (ht *HashTable) Values() tree.BinarySearchTree {
-	return tree.BinarySearchTree{}
+/// Returns a list of all the values of entries in the hash table
+func (ht *HashTable) Values() []interface{} {
+	x := make([]interface{}, ht.numItems)
+	i := 0
+	for _, e := range ht.bucketArray {
+		if e != nil {
+			x[i] = e.(*entry).value
+			i++
+		}
+	}
+
+	return x
 }
 
-func (ht *HashTable) EntrySet() tree.BinarySearchTree {
-	return tree.BinarySearchTree{}
+/// Returns a list of all the entries in the hash table
+func (ht *HashTable) EntrySet() []interface{} {
+	x := make([]interface{}, ht.numItems)
+	i := 0
+	for _, e := range ht.bucketArray {
+		if e != nil {
+			x[i] = e
+			i++
+		}
+	}
+
+	return x
 }
 
 /// Update the load factor of the hash table after a new item
