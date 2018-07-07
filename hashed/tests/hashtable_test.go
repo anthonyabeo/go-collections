@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-var ht = hashed.NewHashTable()
+var ht = hashed.NewHashTable(13)
 
 func TestNewHT(t *testing.T)  {
 	if ht.Size() != 0 {
