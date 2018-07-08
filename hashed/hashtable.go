@@ -56,8 +56,11 @@ func (ht *HashTable) LoadFactor() float32 {return ht.loadFactor}
 /// Args
 ///		key -  the key of the item to be inserted
 ///		value - the value of the item to be inserted
-func (ht *HashTable) Put(key, value interface{}) {
+func (ht *HashTable) Put(key, value interface{}) error {
 	hc := hashCode(key)
+	if hashCodeExists(ht, hc) {
+		return errors.New("item with such key already exist")
+	}
 	newEntry := &entry{key, value, hc}
 
 	if ht.loadFactor <= 0.5 {
@@ -85,6 +88,8 @@ func (ht *HashTable) Put(key, value interface{}) {
 
 	ht.updateLoadFactor()
 	ht.numItems++
+
+	return nil
 }
 
 /// returns the value associated with the specified key.
@@ -101,7 +106,7 @@ func (ht *HashTable) Get(key interface{}) (interface{}, error) {
 		return nil, errors.New("invalid key")
 	}
 
-	return ht.bucketArray[idx].(*entry).value, nil
+	return ht.bucketArray[idx].(*entry), nil
 }
 
 /// removes and returns the entry associated with the specified key.
@@ -185,20 +190,20 @@ func hashCode(k interface{}) int64 {
 	var x int64
 
 	switch k.(type) {
-	case int:
-		x = k.(int64)
-	case string:
-		for idx, char := range k.(string) {
-			x += int64(float64(char) * math.Pow(33, float64(idx)))
-		}
-	case float32:
-		x = int64(k.(float32))
-	case uint:
-		x = int64(k.(uint))
-	case rune:
-		x = int64(k.(rune))
-	case byte:
-		x = int64(k.(byte))
+		case int:
+			x = int64(k.(int))
+		case string:
+			for idx, char := range k.(string) {
+				x += int64(float64(char) * math.Pow(33, float64(idx)))
+			}
+		case float32:
+			x = int64(k.(float32))
+		case uint:
+			x = int64(k.(uint))
+		case rune:
+			x = int64(k.(rune))
+		case byte:
+			x = int64(k.(byte))
 	}
 	return x
 }
@@ -279,4 +284,23 @@ func doubleHashInsert(ht *HashTable, idx int, e *entry)  {
 ///		k - the index of the entry
 func hPrime(k int) int {
 	return 5 - (k % 5)
+}
+
+/// Prevents duplicate keys by checking the hash code of the
+/// key provided to ensure that it is not already in the table
+///
+/// Args
+///		ht - a pointer to the hash table
+///		hc - the hash code of the new entry
+///
+/// Return
+///		bool - true if the key already exists and false otherwise
+func hashCodeExists(ht *HashTable, hc int64) bool {
+	for _, e := range ht.bucketArray {
+		if e != nil && e.(*entry).hashCode == hc {
+			return true
+		}
+	}
+
+	return false
 }

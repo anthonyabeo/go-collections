@@ -3,7 +3,6 @@ package tests
 import (
 	"go-collections/hashed"
 	"testing"
-	"fmt"
 )
 
 var ht = hashed.NewHashTable(13)
@@ -44,11 +43,11 @@ func TestGet(t *testing.T)  {
 	if val, err := ht.Get("a"); err != nil || val == nil {t.Error("should be 1")}
 	if val, err := ht.Get("c"); err != nil || val == nil {t.Error("should be 3")}
 	if val, err := ht.Get("d"); err != nil || val == nil {t.Error("should be 4")}
-	if val, err := ht.Get("e"); err != nil || val == nil{t.Error("should be 5")}
-	if val, err := ht.Get("f"); err != nil || val == nil{t.Error("should be 6")}
+	if val, err := ht.Get("e"); err != nil || val == nil {t.Error("should be 5")}
+	if val, err := ht.Get("f"); err != nil || val == nil {t.Error("should be 6")}
 	if val, err := ht.Get("g"); err != nil || val == nil {t.Error("should be 7")}
-	if val, err := ht.Get("h"); err != nil || val == nil{t.Error("should be 8")}
-	if val, err := ht.Get("i"); err != nil || val == nil{t.Error("should be 9")}
+	if val, err := ht.Get("h"); err != nil || val == nil {t.Error("should be 8")}
+	if val, err := ht.Get("i"); err != nil || val == nil {t.Error("should be 9")}
 	if val, err := ht.Get("j"); err != nil || val == nil {t.Error("should be 10")}
 }
 
@@ -58,12 +57,12 @@ func TestValues(t *testing.T)  {
 		t.Error("should be 10")
 	}
 
-	for i := 0; i < len(vals); i++ {
-		if vals[i] == nil {
-			fmt.Println(nil)
-		}
-	}
-	fmt.Println(vals)
+	//for i := 0; i < len(vals); i++ {
+	//	if vals[i] == nil {
+	//		fmt.Println(nil)
+	//	}
+	//}
+	//fmt.Println(vals)
 }
 
 func TestKeySet(t *testing.T)  {
@@ -72,7 +71,7 @@ func TestKeySet(t *testing.T)  {
 		t.Error("should be 10")
 	}
 
-	fmt.Println(vals)
+	//fmt.Println(vals)
 }
 
 func TestEntrySet(t *testing.T)  {
@@ -81,6 +80,6 @@ func TestEntrySet(t *testing.T)  {
 		t.Error("should be 10")
 	}
 
-	fmt.Println(vals)
+	//fmt.Println(vals)
 }
 
