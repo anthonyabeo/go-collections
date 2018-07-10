@@ -18,11 +18,18 @@ func (n dllNode) Next() *dllNode {
 	return n.next
 }
 
+func (n *dllNode) SetNext(node *dllNode)()  {
+	n.next = node
+}
+
 // returns a pointer to the prev node in the list
 func (n dllNode) Prev() *dllNode {
 	return n.prev
 }
 
+func (n dllNode) SetPrev(node *dllNode) {
+	n.prev = node
+}
 
 type DoublyLinkedList struct {
 	numItems int
@@ -42,6 +49,11 @@ func NewDll() *DoublyLinkedList {
 	dll.header.next = trailer
 
 	return dll
+}
+
+// Returns the header of the list
+func (dll *DoublyLinkedList) Head() *dllNode {
+	return dll.header
 }
 
 // Returns the number of items in the list
