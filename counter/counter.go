@@ -2,7 +2,6 @@ package counter
 
 import (
 	"sync"
-	"fmt"
 )
 
 var instance *Counter
@@ -28,7 +27,7 @@ func (c *Counter) Increment()  {
 	defer c.lock.Unlock()
 
 	c.value++
-	fmt.Printf("Incrementing: %d\n", c.value)
+	//fmt.Printf("Incrementing: %d\n", c.value)
 }
 
 func (c *Counter) Decrement()  {
@@ -36,7 +35,7 @@ func (c *Counter) Decrement()  {
 	defer c.lock.Unlock()
 
 	c.value--
-	fmt.Printf("Decrementing: %d\n", c.value)
+	//fmt.Printf("Decrementing: %d\n", c.value)
 }
 
 func (c *Counter) GetValue() int {

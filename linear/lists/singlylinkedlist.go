@@ -1,5 +1,6 @@
 package list
 
+import "sync"
 
 /// This is Node implementation. The node is private
 /// outside this file since it starts with lowercase
@@ -29,10 +30,14 @@ type SinglyLinkedList struct {
     numItems int
     head *node
     tail *node
+    lock *sync.Mutex
 }
 
 // Add a new item to the front of the list
 func (sll *SinglyLinkedList) AddFirst(e interface{}) {
+    sll.lock.Lock()
+    defer sll.lock.Unlock()
+
     sll.head = &node{item: e, next: sll.head}
     if sll.numItems == 0 {
         sll.tail = sll.head
@@ -42,6 +47,9 @@ func (sll *SinglyLinkedList) AddFirst(e interface{}) {
 
 // returns the first element from the list
 func (sll *SinglyLinkedList) First() interface{}  {
+    sll.lock.Lock()
+    defer sll.lock.Unlock()
+
 	if sll.IsEmpty() {
 		return nil
 	}
@@ -50,6 +58,9 @@ func (sll *SinglyLinkedList) First() interface{}  {
 
 // Add a new item to the end of the list
 func (sll *SinglyLinkedList) AddLast(e interface{}) {
+    sll.lock.Lock()
+    defer sll.lock.Unlock()
+
     newNode := &node{item: e, next: nil}
     if sll.IsEmpty() {
         sll.head = newNode
@@ -63,6 +74,9 @@ func (sll *SinglyLinkedList) AddLast(e interface{}) {
 
 // returns the first element from the list
 func (sll *SinglyLinkedList) Last() interface{} {
+    sll.lock.Lock()
+    defer sll.lock.Unlock()
+
 	if sll.IsEmpty() {
 		return nil
 	}
@@ -71,6 +85,9 @@ func (sll *SinglyLinkedList) Last() interface{} {
 
 // adds a new item after the specified node
 func (sll *SinglyLinkedList) AddAfter(n *node, e interface{})  {
+    sll.lock.Lock()
+    defer sll.lock.Unlock()
+
     if n != nil {
         n.next = &node{e, n.next}
         sll.numItems++
@@ -79,17 +96,26 @@ func (sll *SinglyLinkedList) AddAfter(n *node, e interface{})  {
 
 // Returns the number of items in the list
 func (sll *SinglyLinkedList) Size() int {
+    sll.lock.Lock()
+    defer sll.lock.Unlock()
+
     return sll.numItems
 }
 
 // returns a boolean indicating whether or not
 // the list is empty or not
 func (sll *SinglyLinkedList) IsEmpty() bool  {
+    sll.lock.Lock()
+    defer sll.lock.Unlock()
+
     return sll.numItems == 0
 }
 
 // removes and returns the first item in the list
 func (sll *SinglyLinkedList) RemoveFirst() interface{} {
+    sll.lock.Lock()
+    defer sll.lock.Unlock()
+
     if sll.IsEmpty(){
         return nil
     }
