@@ -2,7 +2,7 @@ package graphs
 
 import (
 	"errors"
-	"go-collections/linear/lists"
+	"go-collections/linear/lists/linked"
 	"math"
 )
 
@@ -11,7 +11,7 @@ import (
 // the vertex belongs to.
 type Vertex struct {
 	item     interface{}
-	edgeList *list.DoublyLinkedList
+	edgeList *linked.DoublyLinkedList
 }
 
 // A struct to represent an edge in the graph. An edge contains
@@ -26,8 +26,8 @@ type Edge struct {
 // An implementation of a graph as an Adjacency List. The graph
 // is represented by a list of vertices and edges
 type AdjacencyListGraph struct {
-	vertices *list.DoublyLinkedList
-	edges    *list.DoublyLinkedList
+	vertices *linked.DoublyLinkedList
+	edges    *linked.DoublyLinkedList
 }
 
 // returns the number of edges in the graph
@@ -41,12 +41,12 @@ func (alg *AdjacencyListGraph) NumVertices() int {
 }
 
 // Returns an iteration of all the vertices of the graph
-func (alg *AdjacencyListGraph) Vertices() *list.DoublyLinkedList {
+func (alg *AdjacencyListGraph) Vertices() *linked.DoublyLinkedList {
 	return alg.vertices
 }
 
 // Returns an iteration of all the edge of the graph
-func (alg *AdjacencyListGraph) Edges() *list.DoublyLinkedList {
+func (alg *AdjacencyListGraph) Edges() *linked.DoublyLinkedList {
 	return alg.edges
 }
 
@@ -107,7 +107,7 @@ func (alg *AdjacencyListGraph) Degree(v *Vertex) int {
 }
 
 // Returns an iteration of all the edge incident of vertex v
-func (alg *AdjacencyListGraph) EdgesOf(v *Vertex) *list.DoublyLinkedList {
+func (alg *AdjacencyListGraph) EdgesOf(v *Vertex) *linked.DoublyLinkedList {
 	return v.edgeList
 }
 
@@ -115,7 +115,7 @@ func (alg *AdjacencyListGraph) EdgesOf(v *Vertex) *list.DoublyLinkedList {
 func (alg *AdjacencyListGraph) InsertVertex(x interface{}) *Vertex {
 	v := &Vertex{
 		x,
-		new(list.DoublyLinkedList),
+		new(linked.DoublyLinkedList),
 	}
 	alg.vertices.AddFirst(v)
 

@@ -1,13 +1,13 @@
 package linear
 
-import "go-collections/linear/lists"
+import "go-collections/linear/lists/linked"
 
 type Deque struct {
-	deque *list.DoublyLinkedList
+	deque *linked.DoublyLinkedList
 }
 
 func NewDeque() *Deque {
-	return &Deque{list.NewDll()}
+	return &Deque{linked.NewDll()}
 }
 
 func (deque *Deque) AddFirst(e interface{}) {

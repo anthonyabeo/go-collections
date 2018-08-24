@@ -1,4 +1,4 @@
-package list
+package linked
 
 import "sync"
 
@@ -6,18 +6,19 @@ import "sync"
 /// outside this file since it starts with lowercase
 /// Here a struct data structure to hold the items
 /// of the Node. These include the item and the next
-type node struct {
+type scalingNode struct {
 	item interface{}
-	next *node
+	next *scalingNode
+	lock *sync.Mutex
 }
 
 // returns a pointer to the item in the node
-func (n node) Item() interface{} {
+func (n *scalingNode) SItem() interface{} {
 	return n.item
 }
 
 // returns a pointer to the next node in the list
-func (n node) Next() *node {
+func (n *scalingNode) SNext() *scalingNode {
 	return n.next
 }
 
@@ -25,19 +26,15 @@ func (n node) Next() *node {
 /// Here a struct data structure to hold the items
 /// of the list. These include the number of items,
 /// the head and the tail of the list
-type SinglyLinkedList struct {
+type ScalingSinglyLinkedList struct {
 	numItems int
-	head     *node
-	tail     *node
-	lock     *sync.Mutex
+	head     *scalingNode
+	tail     *scalingNode
 }
 
 // Add a new item to the front of the list
-func (sll *SinglyLinkedList) AddFirst(e interface{}) {
-	sll.lock.Lock()
-	defer sll.lock.Unlock()
-
-	sll.head = &node{item: e, next: sll.head}
+func (sll *ScalingSinglyLinkedList) SAddFirst(e interface{}) {
+	sll.head = &scalingNode{item: e, next: sll.head, lock: new(sync.Mutex)}
 	if sll.numItems == 0 {
 		sll.tail = sll.head
 	}
@@ -45,23 +42,20 @@ func (sll *SinglyLinkedList) AddFirst(e interface{}) {
 }
 
 // returns the first element from the list
-func (sll *SinglyLinkedList) First() interface{} {
-	sll.lock.Lock()
-	defer sll.lock.Unlock()
+func (sll *ScalingSinglyLinkedList) SFirst() interface{} {
+	if sll.SIsEmpty() { return nil }
 
-	if sll.IsEmpty() {
-		return nil
-	}
+	sll.head.lock.Lock()
+	defer sll.head.lock.Unlock()
+
 	return sll.head.item
 }
 
 // Add a new item to the end of the list
-func (sll *SinglyLinkedList) AddLast(e interface{}) {
-	sll.lock.Lock()
-	defer sll.lock.Unlock()
+func (sll *ScalingSinglyLinkedList) SAddLast(e interface{}) {
 
-	newNode := &node{item: e, next: nil}
-	if sll.IsEmpty() {
+	newNode := &scalingNode{item: e, next: sll.head, lock: new(sync.Mutex)}
+	if sll.SIsEmpty() {
 		sll.head = newNode
 	} else {
 		sll.tail.next = newNode
@@ -72,54 +66,55 @@ func (sll *SinglyLinkedList) AddLast(e interface{}) {
 }
 
 // returns the first element from the list
-func (sll *SinglyLinkedList) Last() interface{} {
-	sll.lock.Lock()
-	defer sll.lock.Unlock()
+func (sll *ScalingSinglyLinkedList) SLast() interface{} {
 
-	if sll.IsEmpty() {
-		return nil
-	}
+	if sll.SIsEmpty() { return nil }
+
+	sll.tail.lock.Lock()
+	defer sll.tail.lock.Unlock()
+
 	return sll.tail.item
 }
 
 // adds a new item after the specified node
-func (sll *SinglyLinkedList) AddAfter(n *node, e interface{}) {
-	sll.lock.Lock()
-	defer sll.lock.Unlock()
+func (sll *ScalingSinglyLinkedList) SAddAfter(n *scalingNode, e interface{}) {
 
 	if n != nil {
-		n.next = &node{e, n.next}
+		n.lock.Lock()
+
+		n.next.lock.Lock()
+		defer n.lock.Unlock()
+
+		n.next = &scalingNode{item: e, next: sll.head, lock: new(sync.Mutex)}
 		sll.numItems++
+
+		n.lock.Unlock()
 	}
 }
 
 // Returns the number of items in the list
-func (sll *SinglyLinkedList) Size() int {
-	sll.lock.Lock()
-	defer sll.lock.Unlock()
+func (sll *ScalingSinglyLinkedList) SSize() int {
 
 	return sll.numItems
 }
 
 // returns a boolean indicating whether or not
 // the list is empty or not
-func (sll *SinglyLinkedList) IsEmpty() bool {
-	sll.lock.Lock()
-	defer sll.lock.Unlock()
+func (sll *ScalingSinglyLinkedList) SIsEmpty() bool {
 
 	return sll.numItems == 0
 }
 
 // removes and returns the first item in the list
-func (sll *SinglyLinkedList) RemoveFirst() interface{} {
-	sll.lock.Lock()
-	defer sll.lock.Unlock()
+func (sll *ScalingSinglyLinkedList) SRemoveFirst() interface{} {
+	sll.head.lock.Lock()
+	defer sll.head.lock.Unlock()
 
-	if sll.IsEmpty() {
+	if sll.SIsEmpty() {
 		return nil
 	}
-	first := sll.First()
-	sll.head = sll.head.Next()
+	first := sll.SFirst()
+	sll.head = sll.head.SNext()
 	sll.numItems--
 
 	if sll.numItems == 0 {

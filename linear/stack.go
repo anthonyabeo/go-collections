@@ -1,9 +1,9 @@
 package linear
 
-import "go-collections/linear/lists"
+import "go-collections/linear/lists/linked"
 
 type Stack struct {
-	stack list.SinglyLinkedList
+	stack linked.SinglyLinkedList
 }
 
 func (stack *Stack) Push(e interface{}) {

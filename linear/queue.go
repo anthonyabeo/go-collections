@@ -1,9 +1,9 @@
 package linear
 
-import "go-collections/linear/lists"
+import "go-collections/linear/lists/linked"
 
 type Queue struct {
-	queue list.SinglyLinkedList
+	queue linked.SinglyLinkedList
 }
 
 func (q *Queue) Enqueue(e interface{}) {

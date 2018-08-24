@@ -186,13 +186,8 @@ func min(root *node) interface{} {
 }
 
 func max(root *node) interface{} {
-	if root == nil {
-		return nil
-	}
-
-	if root.right == nil {
-		return root.item
-	}
+	if root == nil { return nil }
+	if root.right == nil { return root.item}
 
 	return max(root.right)
 }
@@ -220,9 +215,7 @@ func contains(root *node, e interface{}) (*node, bool) {
 }
 
 func remove(root *node) interface{} {
-	if root == nil {
-		return nil
-	}
+	if root == nil { return nil }
 
 	if root.left == nil {
 		item := root.item
@@ -235,9 +228,7 @@ func remove(root *node) interface{} {
 }
 
 func isBST(root *node) bool {
-	if root == nil {
-		return false
-	}
+	if root == nil { return false }
 
 	if root.right == nil && root.left == nil {
 		return true

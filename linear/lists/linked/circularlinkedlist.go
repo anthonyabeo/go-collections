@@ -1,4 +1,4 @@
-package list
+package linked
 
 type CircularLinkedList struct {
 	tail     *node
