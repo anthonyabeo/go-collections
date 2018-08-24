@@ -5,9 +5,9 @@ import (
 	"testing"
 )
 
-var stack  = new(linear.Stack)
+var stack = new(linear.Stack)
 
-func TestPush(t *testing.T)  {
+func TestPush(t *testing.T) {
 	if !stack.IsEmpty() {
 		t.Error("expected stack to be empty")
 	}
@@ -29,7 +29,7 @@ func TestTop(t *testing.T) {
 	}
 }
 
-func TestPop(t *testing.T)  {
+func TestPop(t *testing.T) {
 	if stack.Pop() != "duck" {
 		t.Error("Expected goat")
 	}

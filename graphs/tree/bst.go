@@ -9,8 +9,8 @@ type Comparable interface {
 }
 
 type node struct {
-	item interface{}
-	left *node
+	item  interface{}
+	left  *node
 	right *node
 }
 
@@ -21,54 +21,54 @@ func (n *node) IsLeaf() bool {
 func (n *node) compare(other interface{}) int {
 	var x int
 	switch other.(type) {
-		case int:
-			if n.item.(int) == other.(int) {
-				x = 0
-			} else if n.item.(int) > other.(int) {
-				x = 1
-			} else {
-				x = -1
-			}
-		case string:
-			if n.item.(string) == other.(string) {
-				x = 0
-			} else if n.item.(string) > other.(string) {
-				x = 1
-			} else {
-				x = -1
-			}
-		case float32:
-			if n.item.(float32) == other.(float32) {
-				x = 0
-			} else if n.item.(float32) > other.(float32) {
-				x = 1
-			} else {
-				x = -1
-			}
-		case uint:
-			if n.item.(uint) == other.(uint) {
-				x = 0
-			} else if n.item.(uint) > other.(uint) {
-				x = 1
-			} else {
-				x = -1
-			}
-		case rune:
-			if n.item.(rune) == other.(rune) {
-				x = 0
-			} else if n.item.(rune) > other.(rune) {
-				x = 1
-			} else {
-				x = -1
-			}
-		case byte:
-			if n.item.(byte) == other.(byte) {
-				x = 0
-			} else if n.item.(byte) > other.(byte) {
-				x = 1
-			} else {
-				x = -1
-			}
+	case int:
+		if n.item.(int) == other.(int) {
+			x = 0
+		} else if n.item.(int) > other.(int) {
+			x = 1
+		} else {
+			x = -1
+		}
+	case string:
+		if n.item.(string) == other.(string) {
+			x = 0
+		} else if n.item.(string) > other.(string) {
+			x = 1
+		} else {
+			x = -1
+		}
+	case float32:
+		if n.item.(float32) == other.(float32) {
+			x = 0
+		} else if n.item.(float32) > other.(float32) {
+			x = 1
+		} else {
+			x = -1
+		}
+	case uint:
+		if n.item.(uint) == other.(uint) {
+			x = 0
+		} else if n.item.(uint) > other.(uint) {
+			x = 1
+		} else {
+			x = -1
+		}
+	case rune:
+		if n.item.(rune) == other.(rune) {
+			x = 0
+		} else if n.item.(rune) > other.(rune) {
+			x = 1
+		} else {
+			x = -1
+		}
+	case byte:
+		if n.item.(byte) == other.(byte) {
+			x = 0
+		} else if n.item.(byte) > other.(byte) {
+			x = 1
+		} else {
+			x = -1
+		}
 	}
 
 	return x
@@ -86,13 +86,12 @@ func (n *node) Right() *node {
 	return n.right
 }
 
-
 /// Binary Search Tree implementation starts here
 /// We define a struct to model the BST. It has a node pointer
 /// and number of items for fields. Some methods it implements
 /// include Size(), IsEmpty(), Contains() etc
 type BinarySearchTree struct {
-	root *node
+	root     *node
 	numItems int
 }
 
@@ -112,7 +111,7 @@ func (bst *BinarySearchTree) IsEmpty() bool {
 ///
 /// Args
 ///		e : item to be inserted
-func (bst *BinarySearchTree) Insert(e interface{})  {
+func (bst *BinarySearchTree) Insert(e interface{}) {
 	if bst.root == nil {
 		bst.root = &node{e, nil, nil}
 	} else {
@@ -120,7 +119,6 @@ func (bst *BinarySearchTree) Insert(e interface{})  {
 	}
 	bst.numItems++
 }
-
 
 func (bst *BinarySearchTree) Remove(e interface{}) interface{} {
 	var item interface{}
@@ -144,7 +142,9 @@ func (bst *BinarySearchTree) Max() interface{} {
 }
 
 func (bst *BinarySearchTree) Contains(e interface{}) (*node, bool) {
-	if bst.root == nil { return nil, false}
+	if bst.root == nil {
+		return nil, false
+	}
 
 	return contains(bst.root, e)
 }
@@ -153,7 +153,6 @@ func (bst *BinarySearchTree) Contains(e interface{}) (*node, bool) {
 func (bst *BinarySearchTree) IsBST() bool {
 	return isBST(bst.root)
 }
-
 
 /// Helper functions
 func insert(e interface{}, root *node) {
@@ -175,9 +174,11 @@ func insert(e interface{}, root *node) {
 }
 
 func min(root *node) interface{} {
-	if root == nil {return nil}
+	if root == nil {
+		return nil
+	}
 
-	if root.left == nil{
+	if root.left == nil {
 		return root.item
 	}
 
@@ -185,9 +186,11 @@ func min(root *node) interface{} {
 }
 
 func max(root *node) interface{} {
-	if root == nil {return nil}
+	if root == nil {
+		return nil
+	}
 
-	if root.right == nil{
+	if root.right == nil {
 		return root.item
 	}
 
@@ -204,8 +207,12 @@ func contains(root *node, e interface{}) (*node, bool) {
 		if node.item == e {
 			return node, true
 		} else {
-			if node.left != nil {q.Enqueue(node.left)}
-			if node.right != nil {q.Enqueue(node.right)}
+			if node.left != nil {
+				q.Enqueue(node.left)
+			}
+			if node.right != nil {
+				q.Enqueue(node.right)
+			}
 		}
 	}
 
@@ -213,9 +220,11 @@ func contains(root *node, e interface{}) (*node, bool) {
 }
 
 func remove(root *node) interface{} {
-	if root == nil {return nil}
+	if root == nil {
+		return nil
+	}
 
-	if root.left == nil{
+	if root.left == nil {
 		item := root.item
 		root = nil
 
@@ -226,7 +235,9 @@ func remove(root *node) interface{} {
 }
 
 func isBST(root *node) bool {
-	if root == nil {return false}
+	if root == nil {
+		return false
+	}
 
 	if root.right == nil && root.left == nil {
 		return true

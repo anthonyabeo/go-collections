@@ -7,7 +7,7 @@ import (
 
 var queue = new(linear.Queue)
 
-func TestEnqueue(t *testing.T)  {
+func TestEnqueue(t *testing.T) {
 	if !queue.IsEmpty() {
 		t.Error("expected queue to be empty")
 	}
@@ -29,7 +29,7 @@ func TestQueueFirst(t *testing.T) {
 	}
 }
 
-func TestDequeue(t *testing.T)  {
+func TestDequeue(t *testing.T) {
 	if queue.Dequeue() != "goat" {
 		t.Error("Expected goat")
 	}

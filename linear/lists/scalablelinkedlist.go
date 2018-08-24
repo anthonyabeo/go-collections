@@ -22,15 +22,14 @@ func (n *scalingNode) SNext() *scalingNode {
 	return n.next
 }
 
-
 /// This is SinglyLikedList implementation
 /// Here a struct data structure to hold the items
 /// of the list. These include the number of items,
 /// the head and the tail of the list
 type ScalingSinglyLinkedList struct {
 	numItems int
-	head *scalingNode
-	tail *scalingNode
+	head     *scalingNode
+	tail     *scalingNode
 }
 
 // Add a new item to the front of the list
@@ -43,7 +42,7 @@ func (sll *ScalingSinglyLinkedList) SAddFirst(e interface{}) {
 }
 
 // returns the first element from the list
-func (sll *ScalingSinglyLinkedList) SFirst() interface{}  {
+func (sll *ScalingSinglyLinkedList) SFirst() interface{} {
 
 	if sll.SIsEmpty() {
 		return nil
@@ -82,7 +81,7 @@ func (sll *ScalingSinglyLinkedList) SLast() interface{} {
 }
 
 // adds a new item after the specified node
-func (sll *ScalingSinglyLinkedList) SAddAfter(n *scalingNode, e interface{})  {
+func (sll *ScalingSinglyLinkedList) SAddAfter(n *scalingNode, e interface{}) {
 
 	if n != nil {
 		n.lock.Lock()
@@ -105,7 +104,7 @@ func (sll *ScalingSinglyLinkedList) SSize() int {
 
 // returns a boolean indicating whether or not
 // the list is empty or not
-func (sll *ScalingSinglyLinkedList) SIsEmpty() bool  {
+func (sll *ScalingSinglyLinkedList) SIsEmpty() bool {
 
 	return sll.numItems == 0
 }
@@ -115,7 +114,7 @@ func (sll *ScalingSinglyLinkedList) SRemoveFirst() interface{} {
 	sll.head.lock.Lock()
 	defer sll.head.lock.Unlock()
 
-	if sll.SIsEmpty(){
+	if sll.SIsEmpty() {
 		return nil
 	}
 	first := sll.SFirst()

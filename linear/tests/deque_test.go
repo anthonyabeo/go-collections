@@ -1,8 +1,8 @@
 package tests
 
 import (
-	"testing"
 	"go-collections/linear"
+	"testing"
 )
 
 var deque = linear.NewDeque()
@@ -50,7 +50,7 @@ func TestDequeAddLast(t *testing.T) {
 	}
 }
 
-func TestDequeRemoveFirst(t *testing.T)  {
+func TestDequeRemoveFirst(t *testing.T) {
 	item := deque.RemoveFirst()
 
 	if item != "queen" {
@@ -62,7 +62,7 @@ func TestDequeRemoveFirst(t *testing.T)  {
 	}
 }
 
-func TestDequeRemoveLast(t *testing.T)  {
+func TestDequeRemoveLast(t *testing.T) {
 	item := deque.RemoveLast()
 	deque.RemoveLast()
 	deque.RemoveLast()

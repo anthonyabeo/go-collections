@@ -7,7 +7,7 @@ import (
 
 var hs = hashed.NewHashSet(13)
 
-func TestAdd(t *testing.T)  {
+func TestAdd(t *testing.T) {
 	if !hs.IsEmpty() {
 		t.Error("should be empty")
 	}
@@ -28,7 +28,7 @@ func TestAdd(t *testing.T)  {
 	}
 }
 
-func TestContains(t *testing.T)  {
+func TestContains(t *testing.T) {
 	if !hs.Contains("e") {
 		t.Error("should contain e")
 	}
@@ -38,19 +38,26 @@ func TestContains(t *testing.T)  {
 	}
 }
 
-func TestRemove(t *testing.T)  {
-	if val, err := hs.Remove("b"); err != nil || val == nil {t.Error("should be 2")}
-	if val, err := hs.Remove("a"); err != nil || val == nil {t.Error("should be 1")}
-	if val, err := hs.Remove("c"); err != nil || val == nil {t.Error("should be 3")}
-	if val, err := hs.Remove("d"); err != nil || val == nil {t.Error("should be 4")}
+func TestRemove(t *testing.T) {
+	if val, err := hs.Remove("b"); err != nil || val == nil {
+		t.Error("should be 2")
+	}
+	if val, err := hs.Remove("a"); err != nil || val == nil {
+		t.Error("should be 1")
+	}
+	if val, err := hs.Remove("c"); err != nil || val == nil {
+		t.Error("should be 3")
+	}
+	if val, err := hs.Remove("d"); err != nil || val == nil {
+		t.Error("should be 4")
+	}
 
 	if hs.Size() != 6 {
 		t.Error("size should be 6")
 	}
 }
 
-
-func TestEmpty(t *testing.T)  {
+func TestEmpty(t *testing.T) {
 	hs.Empty()
 	if hs.Size() != 0 {
 		t.Error("size should be zero")

@@ -8,7 +8,7 @@ var instance *Counter
 
 type Counter struct {
 	value int
-	lock *sync.Mutex
+	lock  *sync.Mutex
 }
 
 func GetInstance() *Counter {
@@ -22,7 +22,7 @@ func GetInstance() *Counter {
 	return instance
 }
 
-func (c *Counter) Increment()  {
+func (c *Counter) Increment() {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
@@ -30,7 +30,7 @@ func (c *Counter) Increment()  {
 	//fmt.Printf("Incrementing: %d\n", c.value)
 }
 
-func (c *Counter) Decrement()  {
+func (c *Counter) Decrement() {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 

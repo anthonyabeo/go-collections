@@ -40,7 +40,7 @@ func (hs *HashSet) Remove(key interface{}) (interface{}, error) {
 	return hs.set.Remove(key)
 }
 
-func (hs *HashSet) Empty()  {
+func (hs *HashSet) Empty() {
 	hs.set = &HashTable{
 		make([]interface{}, 13),
 		0,

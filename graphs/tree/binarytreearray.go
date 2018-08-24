@@ -5,7 +5,7 @@ import (
 )
 
 type BinaryTreeArray struct {
-	tree []interface{}
+	tree     []interface{}
 	numItems int
 }
 
@@ -37,7 +37,7 @@ func (tree *BinaryTreeArray) IsEmpty() bool {
 /// Returns
 /// error : nil if the tree is empty
 ///       : error message if a root node already exists
-func (tree *BinaryTreeArray) AddRoot(e interface{}) (error) {
+func (tree *BinaryTreeArray) AddRoot(e interface{}) error {
 	if !tree.IsEmpty() && tree.tree[0] != nil {
 		return errors.New("root node already exist")
 	}
@@ -57,15 +57,15 @@ func (tree *BinaryTreeArray) AddRoot(e interface{}) (error) {
 /// Returns
 /// 	error: if the index p points to nil
 func (tree *BinaryTreeArray) AddLeft(p int, e interface{}) error {
-	 if tree.tree[p] == nil {
-	 	return errors.New("cannot assign left value to nil")
-	 }
+	if tree.tree[p] == nil {
+		return errors.New("cannot assign left value to nil")
+	}
 
-	 leftIndex := (2 * p) + 1
-	 tree.tree[leftIndex] = e
-	 tree.numItems++
+	leftIndex := (2 * p) + 1
+	tree.tree[leftIndex] = e
+	tree.numItems++
 
-	 return nil
+	return nil
 }
 
 func (tree *BinaryTreeArray) Tree() []interface{} {
@@ -100,7 +100,7 @@ func (tree *BinaryTreeArray) AddRight(p int, e interface{}) error {
 /// 	int: index of the element in the tree
 ///		error: if the value does not exist in the tree
 func (tree *BinaryTreeArray) Get(e interface{}) (int, error) {
-	for i := 0; i < tree.Size(); i++  {
+	for i := 0; i < tree.Size(); i++ {
 		if tree.tree[i] == e {
 			return i, nil
 		}
@@ -139,16 +139,16 @@ func (tree *BinaryTreeArray) Remove(p int) error {
 		return errors.New("cannot assign left value to nil")
 	}
 
-	if tree.tree[(2*p) + 1] != nil && tree.tree[(2*p) + 2] != nil {
+	if tree.tree[(2*p)+1] != nil && tree.tree[(2*p)+2] != nil {
 
 		return errors.New("the value has two children")
 
-	} else if tree.tree[(2*p) + 1] != nil && tree.tree[(2*p) + 2] == nil {
-		tree.tree[p] = tree.tree[(2*p) + 1]
-		tree.tree[(2*p) + 1] = nil
-	} else if tree.tree[(2*p) + 1] == nil && tree.tree[(2*p) + 2] != nil {
-		tree.tree[p] = tree.tree[(2*p) + 2]
-		tree.tree[(2*p) + 2] = nil
+	} else if tree.tree[(2*p)+1] != nil && tree.tree[(2*p)+2] == nil {
+		tree.tree[p] = tree.tree[(2*p)+1]
+		tree.tree[(2*p)+1] = nil
+	} else if tree.tree[(2*p)+1] == nil && tree.tree[(2*p)+2] != nil {
+		tree.tree[p] = tree.tree[(2*p)+2]
+		tree.tree[(2*p)+2] = nil
 	} else {
 		tree.tree[p] = nil
 	}

@@ -18,7 +18,7 @@ func (n dllNode) Next() *dllNode {
 	return n.next
 }
 
-func (n *dllNode) SetNext(node *dllNode)()  {
+func (n *dllNode) SetNext(node *dllNode) {
 	n.next = node
 }
 
@@ -33,15 +33,15 @@ func (n dllNode) SetPrev(node *dllNode) {
 
 type DoublyLinkedList struct {
 	numItems int
-	header *dllNode
-	trailer *dllNode
+	header   *dllNode
+	trailer  *dllNode
 }
 
 func NewDll() *DoublyLinkedList {
 	header := &dllNode{"header", nil, nil}
 	trailer := &dllNode{"trailer", nil, header}
 
-	dll := &DoublyLinkedList {
+	dll := &DoublyLinkedList{
 		0,
 		header,
 		trailer,
@@ -63,12 +63,12 @@ func (dll *DoublyLinkedList) Size() int {
 
 // returns a boolean indicating whether or not
 // the list is empty or not
-func (dll *DoublyLinkedList) IsEmpty() bool  {
+func (dll *DoublyLinkedList) IsEmpty() bool {
 	return dll.numItems == 0
 }
 
 // returns the first element from the list
-func (dll *DoublyLinkedList) First() interface{}  {
+func (dll *DoublyLinkedList) First() interface{} {
 	if dll.IsEmpty() {
 		return nil
 	}
@@ -84,7 +84,7 @@ func (dll *DoublyLinkedList) Last() interface{} {
 }
 
 // Add a new item to the front of the list
-func (dll *DoublyLinkedList) AddFirst(e interface{})  {
+func (dll *DoublyLinkedList) AddFirst(e interface{}) {
 	head := dll.header
 	headersNext := dll.header.next
 
@@ -95,7 +95,7 @@ func (dll *DoublyLinkedList) AddFirst(e interface{})  {
 }
 
 // Add a new item to the end of the list
-func (dll *DoublyLinkedList) AddLast(e interface{})  {
+func (dll *DoublyLinkedList) AddLast(e interface{}) {
 	tail := dll.trailer
 	trailerPrev := dll.trailer.prev
 
@@ -107,7 +107,7 @@ func (dll *DoublyLinkedList) AddLast(e interface{})  {
 
 // removes and returns the first item from the list
 func (dll *DoublyLinkedList) RemoveFirst() interface{} {
-	if dll.IsEmpty(){
+	if dll.IsEmpty() {
 		return nil
 	}
 	item := dll.header.next.item
@@ -121,7 +121,7 @@ func (dll *DoublyLinkedList) RemoveFirst() interface{} {
 
 // removes and returns the first item from the list
 func (dll *DoublyLinkedList) RemoveLast() interface{} {
-	if dll.IsEmpty(){
+	if dll.IsEmpty() {
 		return nil
 	}
 
@@ -134,13 +134,13 @@ func (dll *DoublyLinkedList) RemoveLast() interface{} {
 	return item
 }
 
-func (dll *DoublyLinkedList) PrintForward()  {
+func (dll *DoublyLinkedList) PrintForward() {
 	for curNode := dll.header.next; curNode.item != "trailer"; curNode = curNode.next {
 		fmt.Println(curNode.item)
 	}
 }
 
-func (dll *DoublyLinkedList) PrintReverse()  {
+func (dll *DoublyLinkedList) PrintReverse() {
 	for curNode := dll.trailer.prev; curNode.item != "header"; curNode = curNode.prev {
 		fmt.Println(curNode.item)
 	}

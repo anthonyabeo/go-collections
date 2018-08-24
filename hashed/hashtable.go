@@ -1,16 +1,16 @@
 package hashed
 
 import (
+	"errors"
+	"fmt"
 	"math"
 	"math/rand"
 	"time"
-	"fmt"
-	"errors"
 )
 
 type entry struct {
-	key interface{}
-	value interface{}
+	key      interface{}
+	value    interface{}
 	hashCode int64
 }
 
@@ -20,9 +20,9 @@ func (e *entry) String() string {
 
 type HashTable struct {
 	bucketArray []interface{}
-	numItems int
-	capacity int
-	loadFactor float32
+	numItems    int
+	capacity    int
+	loadFactor  float32
 }
 
 /// Creates a new Hashtable and initializes its fields to default values.
@@ -42,11 +42,11 @@ func NewHashTable(cap int) *HashTable {
 	}
 }
 
-func (ht *HashTable) IsEmpty() bool {return ht.numItems == 0}
-func (ht *HashTable) Size() int {return ht.numItems}
-func (ht *HashTable) Capacity() int {return ht.capacity}
-func (ht *HashTable) BucketArray() []interface{} {return ht.bucketArray}
-func (ht *HashTable) LoadFactor() float32 {return ht.loadFactor}
+func (ht *HashTable) IsEmpty() bool              { return ht.numItems == 0 }
+func (ht *HashTable) Size() int                  { return ht.numItems }
+func (ht *HashTable) Capacity() int              { return ht.capacity }
+func (ht *HashTable) BucketArray() []interface{} { return ht.bucketArray }
+func (ht *HashTable) LoadFactor() float32        { return ht.loadFactor }
 
 /// If the hash table, M does not have an entry with key equal to key, then adds entry
 /// (k,v) to M and returns null; else, uses double hashing to find the next
@@ -84,7 +84,6 @@ func (ht *HashTable) Put(key, value interface{}) error {
 		newBucketIdx := compress(newCap, int(hc))
 		doubleHashInsert(ht, newBucketIdx, newEntry)
 	}
-
 
 	ht.updateLoadFactor()
 	ht.numItems++
@@ -190,20 +189,20 @@ func hashCode(k interface{}) int64 {
 	var x int64
 
 	switch k.(type) {
-		case int:
-			x = int64(k.(int))
-		case string:
-			for idx, char := range k.(string) {
-				x += int64(float64(char) * math.Pow(33, float64(idx)))
-			}
-		case float32:
-			x = int64(k.(float32))
-		case uint:
-			x = int64(k.(uint))
-		case rune:
-			x = int64(k.(rune))
-		case byte:
-			x = int64(k.(byte))
+	case int:
+		x = int64(k.(int))
+	case string:
+		for idx, char := range k.(string) {
+			x += int64(float64(char) * math.Pow(33, float64(idx)))
+		}
+	case float32:
+		x = int64(k.(float32))
+	case uint:
+		x = int64(k.(uint))
+	case rune:
+		x = int64(k.(rune))
+	case byte:
+		x = int64(k.(byte))
 	}
 	return x
 }
@@ -229,7 +228,7 @@ func compress(cap int, hashCode int) int {
 
 /// finds the next prime after the specified integer, n
 func nextPrimeAfter(n int) int {
-	for i := n+1; i < (n + 100); i++ {
+	for i := n + 1; i < (n + 100); i++ {
 		if isPrime(i) {
 			return i
 		}
@@ -241,7 +240,7 @@ func nextPrimeAfter(n int) int {
 /// checks if a number, n is a prime
 func isPrime(n int) bool {
 	for i := 2; i < int(math.Sqrt(float64(n))); i++ {
-		if n % i == 0 {
+		if n%i == 0 {
 			return false
 		}
 	}
@@ -252,7 +251,7 @@ func isPrime(n int) bool {
 /// generates a random number between in the range [min, - max]
 func random(min, max int) int {
 	rand.Seed(time.Now().Unix())
-	return rand.Intn(max - min) + min
+	return rand.Intn(max-min) + min
 }
 
 /// Inserts a new entry into the table by searching for a
@@ -264,13 +263,13 @@ func random(min, max int) int {
 ///		ht - a pointer to the hashtable
 ///		idx - the index generated from compressing the entry's hashcode
 ///		e -	a pointer to the entry to be inserted
-func doubleHashInsert(ht *HashTable, idx int, e *entry)  {
+func doubleHashInsert(ht *HashTable, idx int, e *entry) {
 	if ht.bucketArray[idx] == nil {
 		ht.bucketArray[idx] = e
 	} else {
 		for i := 1; i <= 100; i++ {
 			idx := (idx + (i * hPrime(idx))) % ht.capacity
-			if ht.bucketArray[idx]  == nil {
+			if ht.bucketArray[idx] == nil {
 				ht.bucketArray[idx] = e
 				break
 			}

@@ -23,7 +23,7 @@ func TestCllAddFirst(t *testing.T) {
 	}
 }
 
-func TestCllFirst(t *testing.T)  {
+func TestCllFirst(t *testing.T) {
 	if cll.First() != 3 {
 		t.Error("Expected first =", 3)
 	}
@@ -36,13 +36,13 @@ func TestCllAddLast(t *testing.T) {
 	}
 }
 
-func TestCllLast(t *testing.T)  {
+func TestCllLast(t *testing.T) {
 	if cll.Last() != 99 {
 		t.Error("Expected first =", 99)
 	}
 }
 
-func TestCllRemoveFirst(t *testing.T)  {
+func TestCllRemoveFirst(t *testing.T) {
 	first := cll.RemoveFirst()
 	if first != 3 && cll.First() != 17 {
 		t.Error("Expected first =", 17)

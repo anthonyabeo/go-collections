@@ -7,7 +7,7 @@ import (
 
 var ht = hashed.NewHashTable(13)
 
-func TestNewHT(t *testing.T)  {
+func TestNewHT(t *testing.T) {
 	if ht.Size() != 0 {
 		t.Error("size should be zero")
 	}
@@ -17,7 +17,7 @@ func TestNewHT(t *testing.T)  {
 	}
 }
 
-func TestPut(t *testing.T)  {
+func TestPut(t *testing.T) {
 	ht.Put("a", 1)
 	ht.Put("b", 2)
 	ht.Put("c", 3)
@@ -38,20 +38,40 @@ func TestPut(t *testing.T)  {
 	}
 }
 
-func TestGet(t *testing.T)  {
-	if val, err := ht.Get("b"); err != nil || val == nil {t.Error("should be 2")}
-	if val, err := ht.Get("a"); err != nil || val == nil {t.Error("should be 1")}
-	if val, err := ht.Get("c"); err != nil || val == nil {t.Error("should be 3")}
-	if val, err := ht.Get("d"); err != nil || val == nil {t.Error("should be 4")}
-	if val, err := ht.Get("e"); err != nil || val == nil {t.Error("should be 5")}
-	if val, err := ht.Get("f"); err != nil || val == nil {t.Error("should be 6")}
-	if val, err := ht.Get("g"); err != nil || val == nil {t.Error("should be 7")}
-	if val, err := ht.Get("h"); err != nil || val == nil {t.Error("should be 8")}
-	if val, err := ht.Get("i"); err != nil || val == nil {t.Error("should be 9")}
-	if val, err := ht.Get("j"); err != nil || val == nil {t.Error("should be 10")}
+func TestGet(t *testing.T) {
+	if val, err := ht.Get("b"); err != nil || val == nil {
+		t.Error("should be 2")
+	}
+	if val, err := ht.Get("a"); err != nil || val == nil {
+		t.Error("should be 1")
+	}
+	if val, err := ht.Get("c"); err != nil || val == nil {
+		t.Error("should be 3")
+	}
+	if val, err := ht.Get("d"); err != nil || val == nil {
+		t.Error("should be 4")
+	}
+	if val, err := ht.Get("e"); err != nil || val == nil {
+		t.Error("should be 5")
+	}
+	if val, err := ht.Get("f"); err != nil || val == nil {
+		t.Error("should be 6")
+	}
+	if val, err := ht.Get("g"); err != nil || val == nil {
+		t.Error("should be 7")
+	}
+	if val, err := ht.Get("h"); err != nil || val == nil {
+		t.Error("should be 8")
+	}
+	if val, err := ht.Get("i"); err != nil || val == nil {
+		t.Error("should be 9")
+	}
+	if val, err := ht.Get("j"); err != nil || val == nil {
+		t.Error("should be 10")
+	}
 }
 
-func TestValues(t *testing.T)  {
+func TestValues(t *testing.T) {
 	vals := ht.Values()
 	if len(vals) != 10 {
 		t.Error("should be 10")
@@ -65,7 +85,7 @@ func TestValues(t *testing.T)  {
 	//fmt.Println(vals)
 }
 
-func TestKeySet(t *testing.T)  {
+func TestKeySet(t *testing.T) {
 	vals := ht.KeySet()
 	if len(vals) != 10 {
 		t.Error("should be 10")
@@ -74,7 +94,7 @@ func TestKeySet(t *testing.T)  {
 	//fmt.Println(vals)
 }
 
-func TestEntrySet(t *testing.T)  {
+func TestEntrySet(t *testing.T) {
 	vals := ht.EntrySet()
 	if len(vals) != 10 {
 		t.Error("should be 10")
@@ -82,4 +102,3 @@ func TestEntrySet(t *testing.T)  {
 
 	//fmt.Println(vals)
 }
-

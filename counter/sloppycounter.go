@@ -3,9 +3,9 @@ package counter
 import "sync"
 
 type SloppyCounter struct {
-	globalLock *sync.Mutex
-	localLocks[4]*sync.Mutex
-	localCount[4]int
+	globalLock             *sync.Mutex
+	localLocks             [4]*sync.Mutex
+	localCount             [4]int
 	threshold, globalCount int
 }
 
@@ -23,7 +23,7 @@ func (sc *SloppyCounter) Init(threshold int) *SloppyCounter {
 	return slopCounter
 }
 
-func (sc *SloppyCounter) Update(threadId, amt int)  {
+func (sc *SloppyCounter) Update(threadId, amt int) {
 	sc.localLocks[threadId].Lock()
 	defer sc.localLocks[threadId].Unlock()
 

@@ -10,11 +10,11 @@ func NewDeque() *Deque {
 	return &Deque{list.NewDll()}
 }
 
-func (deque *Deque) AddFirst(e interface{})  {
+func (deque *Deque) AddFirst(e interface{}) {
 	deque.deque.AddFirst(e)
 }
 
-func (deque *Deque) AddLast(e interface{})  {
+func (deque *Deque) AddLast(e interface{}) {
 	deque.deque.AddLast(e)
 }
 
@@ -26,7 +26,7 @@ func (deque *Deque) RemoveLast() interface{} {
 	return deque.deque.RemoveLast()
 }
 
-func (deque *Deque) Print()  {
+func (deque *Deque) Print() {
 	deque.deque.PrintForward()
 }
 

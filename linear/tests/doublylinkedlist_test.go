@@ -50,7 +50,7 @@ func TestDllAddLast(t *testing.T) {
 	}
 }
 
-func TestDllRemoveFirst(t *testing.T)  {
+func TestDllRemoveFirst(t *testing.T) {
 	item := dll.RemoveFirst()
 
 	if item != "queen" {
@@ -62,7 +62,7 @@ func TestDllRemoveFirst(t *testing.T)  {
 	}
 }
 
-func TestDllRemoveLast(t *testing.T)  {
+func TestDllRemoveLast(t *testing.T) {
 	item := dll.RemoveLast()
 	dll.RemoveLast()
 	dll.RemoveLast()

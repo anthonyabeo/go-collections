@@ -1,11 +1,11 @@
 package list
 
 type CircularLinkedList struct {
-	tail *node
+	tail     *node
 	numItems int
 }
 
-func (cll CircularLinkedList) Size()  int {
+func (cll CircularLinkedList) Size() int {
 	return cll.numItems
 }
 
@@ -14,8 +14,8 @@ func (cll CircularLinkedList) IsEmpty() bool {
 }
 
 // returns the first element from the list
-func (cll *CircularLinkedList) First() interface{}  {
-	if cll.IsEmpty(){
+func (cll *CircularLinkedList) First() interface{} {
+	if cll.IsEmpty() {
 		return nil
 	}
 	return cll.tail.next.item
@@ -23,14 +23,13 @@ func (cll *CircularLinkedList) First() interface{}  {
 
 // returns the first element from the list
 func (cll *CircularLinkedList) Last() interface{} {
-	if cll.IsEmpty(){
+	if cll.IsEmpty() {
 		return nil
 	}
 	return cll.tail.item
 }
 
-
-func (cll *CircularLinkedList) AddFirst(e interface{})  {
+func (cll *CircularLinkedList) AddFirst(e interface{}) {
 	if cll.IsEmpty() {
 		cll.tail = &node{e, cll.tail}
 		cll.tail.next = cll.tail
@@ -41,7 +40,7 @@ func (cll *CircularLinkedList) AddFirst(e interface{})  {
 	cll.numItems++
 }
 
-func (cll *CircularLinkedList) AddLast(e interface{})  {
+func (cll *CircularLinkedList) AddLast(e interface{}) {
 	cll.AddFirst(e)
 	cll.tail = cll.tail.next
 }
@@ -53,7 +52,7 @@ func (cll *CircularLinkedList) Rotate() {
 }
 
 func (cll *CircularLinkedList) RemoveFirst() interface{} {
-	if cll.IsEmpty(){
+	if cll.IsEmpty() {
 		return nil
 	}
 	head := cll.tail.next

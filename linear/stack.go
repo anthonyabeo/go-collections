@@ -6,7 +6,7 @@ type Stack struct {
 	stack list.SinglyLinkedList
 }
 
-func (stack *Stack) Push(e interface{})  {
+func (stack *Stack) Push(e interface{}) {
 	stack.stack.AddFirst(e)
 }
 

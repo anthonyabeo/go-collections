@@ -1,8 +1,8 @@
 package graphs
 
 import (
-	"go-collections/linear/lists"
 	"errors"
+	"go-collections/linear/lists"
 	"math"
 )
 
@@ -10,7 +10,7 @@ import (
 // A list contains an item and a list of all the edges
 // the vertex belongs to.
 type Vertex struct {
-	item interface{}
+	item     interface{}
 	edgeList *list.DoublyLinkedList
 }
 
@@ -18,17 +18,16 @@ type Vertex struct {
 // references to the two endpoints (vertices) that make up the
 // edge
 type Edge struct {
-	name interface{}
+	name    interface{}
 	vertex1 *Vertex
 	vertex2 *Vertex
 }
-
 
 // An implementation of a graph as an Adjacency List. The graph
 // is represented by a list of vertices and edges
 type AdjacencyListGraph struct {
 	vertices *list.DoublyLinkedList
-	edges *list.DoublyLinkedList
+	edges    *list.DoublyLinkedList
 }
 
 // returns the number of edges in the graph
@@ -126,7 +125,7 @@ func (alg *AdjacencyListGraph) InsertVertex(x interface{}) *Vertex {
 // Creates and returns a new Edge from vertex u to vertex v,
 // storing element x; an error occurs if there already exists an
 // edge from u to v.
-func (alg *AdjacencyListGraph) InsertEdge(u, v *Vertex, e *Edge, x interface{}) (*Edge, error){
+func (alg *AdjacencyListGraph) InsertEdge(u, v *Vertex, e *Edge, x interface{}) (*Edge, error) {
 	if alg.GetEdge(u, v) != nil {
 		return nil, errors.New("edge already exist")
 	}

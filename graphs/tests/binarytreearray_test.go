@@ -1,13 +1,13 @@
 package tests
 
 import (
-	"testing"
 	"go-collections/graphs/tree"
+	"testing"
 )
 
 var tr = tree.NewBTArray()
 
-func TestAddRoot(t *testing.T)  {
+func TestAddRoot(t *testing.T) {
 	err := tr.AddRoot(17)
 	if err != nil {
 		t.Error("inserting root returned an error")
@@ -23,7 +23,7 @@ func TestAddRoot(t *testing.T)  {
 	}
 }
 
-func TestAddLeft(t *testing.T)  {
+func TestAddLeft(t *testing.T) {
 	err := tr.AddLeft(0, 25)
 	if err != nil {
 		t.Error("the node specified by 0 is nil")
@@ -34,7 +34,7 @@ func TestAddLeft(t *testing.T)  {
 	}
 }
 
-func TestAddRight(t *testing.T)  {
+func TestAddRight(t *testing.T) {
 	err := tr.AddRight(0, 34)
 	if err != nil {
 		t.Error("the node specified by 0 is nil")
@@ -49,7 +49,7 @@ func TestAddRight(t *testing.T)  {
 	}
 }
 
-func TestGetAndSet(t *testing.T)  {
+func TestGetAndSet(t *testing.T) {
 	index, err := tr.Get(34)
 	if err != nil {
 		t.Error("err should be nill")
@@ -69,7 +69,7 @@ func TestGetAndSet(t *testing.T)  {
 	}
 }
 
-func TestRemove(t *testing.T)  {
+func TestRemove(t *testing.T) {
 	index, _ := tr.Get(50)
 	e := tr.Remove(index)
 

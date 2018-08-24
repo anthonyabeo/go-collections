@@ -6,7 +6,7 @@ type Queue struct {
 	queue list.SinglyLinkedList
 }
 
-func (q *Queue) Enqueue(e interface{})  {
+func (q *Queue) Enqueue(e interface{}) {
 	q.queue.AddLast(e)
 }
 
