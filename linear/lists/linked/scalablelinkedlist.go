@@ -43,7 +43,9 @@ func (sll *ScalingSinglyLinkedList) SAddFirst(e interface{}) {
 
 // returns the first element from the list
 func (sll *ScalingSinglyLinkedList) SFirst() interface{} {
-	if sll.SIsEmpty() { return nil }
+	if sll.SIsEmpty() {
+		return nil
+	}
 
 	sll.head.lock.Lock()
 	defer sll.head.lock.Unlock()
@@ -68,7 +70,9 @@ func (sll *ScalingSinglyLinkedList) SAddLast(e interface{}) {
 // returns the first element from the list
 func (sll *ScalingSinglyLinkedList) SLast() interface{} {
 
-	if sll.SIsEmpty() { return nil }
+	if sll.SIsEmpty() {
+		return nil
+	}
 
 	sll.tail.lock.Lock()
 	defer sll.tail.lock.Unlock()

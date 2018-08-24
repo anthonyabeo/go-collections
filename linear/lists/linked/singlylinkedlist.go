@@ -115,7 +115,9 @@ func (sll *SinglyLinkedList) RemoveFirst() interface{} {
 	sll.lock.Lock()
 	defer sll.lock.Unlock()
 
-	if sll.IsEmpty() { return nil }
+	if sll.IsEmpty() {
+		return nil
+	}
 
 	first := sll.First()
 	sll.head = sll.head.Next()
