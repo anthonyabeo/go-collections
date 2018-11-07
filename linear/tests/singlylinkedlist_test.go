@@ -6,10 +6,10 @@ import (
 	"testing"
 
 	// User defined packages
-	"go-collections/linear/lists"
+	"go-collections/linear/lists/linked"
 )
 
-var sll = new(list.SinglyLinkedList)
+var sll = new(linked.SinglyLinkedList)
 
 func TestSize(t *testing.T) {
 	if sll.Size() != 0 {

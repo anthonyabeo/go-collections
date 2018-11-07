@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-var queue = new(linear.Queue)
+var queue = linear.NewQueueWithDefault()
 
 func TestEnqueue(t *testing.T) {
 	if !queue.IsEmpty() {

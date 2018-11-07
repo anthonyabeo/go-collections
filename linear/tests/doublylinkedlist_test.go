@@ -1,11 +1,11 @@
 package tests
 
 import (
-	"go-collections/linear/lists"
+	"go-collections/linear/lists/linked"
 	"testing"
 )
 
-var dll = list.NewDll()
+var dll = linked.NewDll()
 
 func TestDllSize(t *testing.T) {
 	if dll.Size() != 0 {

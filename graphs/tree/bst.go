@@ -197,7 +197,7 @@ func max(root *node) interface{} {
 }
 
 func contains(root *node, e interface{}) (*node, bool) {
-	q := new(linear.Queue)
+	q := linear.NewQueueWithDefault()
 	q.Enqueue(root)
 
 	for !q.IsEmpty() {

@@ -3,7 +3,13 @@ package linear
 import "go-collections/linear/lists/linked"
 
 type Queue struct {
-	queue linked.SinglyLinkedList
+	queue *linked.SinglyLinkedList
+}
+
+func NewQueueWithDefault() *Queue {
+	return &Queue{
+		queue: linked.NewSinglyLinkedList(),
+	}
 }
 
 func (q *Queue) Enqueue(e interface{}) {

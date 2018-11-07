@@ -1,11 +1,11 @@
 package tests
 
 import (
-	"go-collections/linear/lists"
+	"go-collections/linear/lists/linked"
 	"testing"
 )
 
-var cll = new(list.CircularLinkedList)
+var cll = new(linked.CircularLinkedList)
 
 func TestCllSize(t *testing.T) {
 	if cll.Size() != 0 {
